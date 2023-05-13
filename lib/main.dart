@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tabs',
-      theme: ThemeData(primarySwatch: Colors.yellow),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: Scaffold(
         appBar: EasySearchBar(
             title: const Text('Tabs'),
@@ -55,18 +55,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Drawer Header'),
               ),
               ListTile(
-                title: const Text('Item 1'),
+                title: const Text('Exoplanets'),
                 onTap: () => Navigator.pop(context),
               ),
               ListTile(
-                title: const Text('Item 2'),
+                title: const Text('Activities'),
                 onTap: () => Navigator.pop(context),
               )
             ],
           ),
         ),
-        body: Center(
-          child: Text('Value: $searchValue'),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: 'Exoplanets',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.sports_soccer),
+              label: 'Activities',
+            ),
+          ],
         ),
       ),
     );
