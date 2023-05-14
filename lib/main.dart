@@ -11,72 +11,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const RootPage(title: ''),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class RootPage extends StatefulWidget {
+  const RootPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<RootPage> createState() => _RootPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RootPageState extends State<RootPage> {
+  var currentIndex = 0;
+
   String searchValue = '';
-  final List<String> _suggestions = ['Exoplanets', 'Activities'];
+  final List<String> _suggestions = [''];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tabs',
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: Scaffold(
-        appBar: EasySearchBar(
-            title: const Text('Tabs'),
-            onSearch: (value) => setState(() => searchValue = value),
-            suggestions: _suggestions),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.yellow,
-                ),
-                child: Text('Drawer Header'),
-              ),
-              ListTile(
-                title: const Text('Exoplanets'),
-                onTap: () => Navigator.pop(context),
-              ),
-              ListTile(
-                title: const Text('Activities'),
-                onTap: () => Navigator.pop(context),
-              )
-            ],
+    return Scaffold(
+      appBar: EasySearchBar(
+          title: const Text('Informations'),
+          onSearch: (value) => setState(() => searchValue = value),
+          suggestions: _suggestions),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (newIndex) {
+          setState(() {
+            currentIndex = newIndex;
+          });
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'Exoplanets',
           ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info),
-              label: 'Exoplanets',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.sports_soccer),
-              label: 'Activities',
-            ),
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_soccer),
+            label: 'Activities',
+          ),
+        ],
       ),
     );
   }
